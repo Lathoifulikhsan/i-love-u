@@ -18,11 +18,12 @@
     color: red;
     animation: heartFall linear forwards;
     pointer-events: none;
+    z-index: 99;
 }
 
 @keyframes heartFall {
     0% {
-        transform: translateY(-50px) scale(1);
+        transform: translateY(-50px) scale(0.8);
         opacity: 1;
     }
     100% {
@@ -30,6 +31,7 @@
         opacity: 0;
     }
 }
+
 
         .bgoverlay {
             background: #fff;
@@ -264,21 +266,15 @@
     flowerContainer.show();
     heartContainer.show();
 
-    const flowerInterval = setInterval(() => {
-        createFlower();
-    }, 300);
-
-    const heartInterval = setInterval(() => {
-        createHeart();
-    }, 200);
+    const flowerInterval = setInterval(createFlower, 200); // makin cepat
+    const heartInterval = setInterval(createHeart, 80); // makin cepat dan banyak
 
     flowerContainer.data('interval', flowerInterval);
     heartContainer.data('interval', heartInterval);
 
-    setTimeout(() => {
-        stopFlowerAnimation();
-    }, 10000);
+    setTimeout(stopFlowerAnimation, 12000); // 12 detik total animasi
 }
+
 
             
             function stopFlowerAnimation() {
@@ -291,6 +287,7 @@
     flowerContainer.hide().empty();
     heartContainer.hide().empty();
 }
+
 
             
             function createFlower() {
@@ -321,12 +318,16 @@
             }
             function createHeart() {
     const container = $('#heartContainer');
-    const heart = $('<div class="heart">❤️</div>');
-    
-    const size = 10 + Math.random() * 20; // Ukuran 10–30px
-    const duration = 4 + Math.random() * 3; // 4–7s
+    const hearts = ['❤️', '💕', '💖', '💘', '💗', '💓', '💞'];
+
+    const heart = $('<div class="heart">').html(
+        hearts[Math.floor(Math.random() * hearts.length)]
+    );
+
+    const size = 10 + Math.random() * 15;
+    const duration = 2 + Math.random() * 2;
     const startPos = Math.random() * window.innerWidth;
-    const delay = Math.random() * 3;
+    const delay = Math.random() * 1;
 
     heart.css({
         left: startPos + 'px',
@@ -337,9 +338,10 @@
 
     container.append(heart);
 
-    // Hapus setelah animasi selesai
-    setTimeout(() => heart.remove(), duration * 1000);
+    setTimeout(() => heart.remove(), (duration + delay) * 1000);
 }
+
+
 
         });
     </script>
