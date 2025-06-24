@@ -13,6 +13,24 @@
             overflow: hidden;
             color: #fff;
         }
+        .heart {
+    position: absolute;
+    color: red;
+    animation: heartFall linear forwards;
+    pointer-events: none;
+}
+
+@keyframes heartFall {
+    0% {
+        transform: translateY(-50px) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
         .bgoverlay {
             background: #fff;
             position: absolute;
@@ -216,6 +234,8 @@
                 <h3>by Ikhsan</h3>
             </div>
         </div>
+        <div id="heartContainer"></div>
+
     </div>
 
     <!-- Flower animation container -->
@@ -238,29 +258,40 @@
             });
             
             function startFlowerAnimation() {
-                const container = $('#flowerContainer');
-                container.show();
-                
-                // Create flowers continuously
-                const interval = setInterval(() => {
-                    createFlower();
-                }, 300);
-                
-                // Store interval ID so we can clear it later
-                container.data('interval', interval);
-                
-                // Stop after 10 seconds (adjust as needed)
-                setTimeout(() => {
-                    stopFlowerAnimation();
-                }, 10000);
-            }
+    const flowerContainer = $('#flowerContainer');
+    const heartContainer = $('#heartContainer');
+
+    flowerContainer.show();
+    heartContainer.show();
+
+    const flowerInterval = setInterval(() => {
+        createFlower();
+    }, 300);
+
+    const heartInterval = setInterval(() => {
+        createHeart();
+    }, 200);
+
+    flowerContainer.data('interval', flowerInterval);
+    heartContainer.data('interval', heartInterval);
+
+    setTimeout(() => {
+        stopFlowerAnimation();
+    }, 10000);
+}
+
             
             function stopFlowerAnimation() {
-                const container = $('#flowerContainer');
-                clearInterval(container.data('interval'));
-                container.hide();
-                container.empty();
-            }
+    const flowerContainer = $('#flowerContainer');
+    const heartContainer = $('#heartContainer');
+
+    clearInterval(flowerContainer.data('interval'));
+    clearInterval(heartContainer.data('interval'));
+
+    flowerContainer.hide().empty();
+    heartContainer.hide().empty();
+}
+
             
             function createFlower() {
                 const container = $('#flowerContainer');
@@ -288,6 +319,28 @@
                     flower.remove();
                 }, duration * 1000);
             }
+            function createHeart() {
+    const container = $('#heartContainer');
+    const heart = $('<div class="heart">❤️</div>');
+    
+    const size = 10 + Math.random() * 20; // Ukuran 10–30px
+    const duration = 4 + Math.random() * 3; // 4–7s
+    const startPos = Math.random() * window.innerWidth;
+    const delay = Math.random() * 3;
+
+    heart.css({
+        left: startPos + 'px',
+        fontSize: size + 'px',
+        animationDuration: duration + 's',
+        animationDelay: delay + 's',
+    });
+
+    container.append(heart);
+
+    // Hapus setelah animasi selesai
+    setTimeout(() => heart.remove(), duration * 1000);
+}
+
         });
     </script>
 </body>
