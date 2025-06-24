@@ -1,347 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Message</title>
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: url(https://subtlepatterns.com/patterns/noise_lines.png);
-            font-family: "Amatic SC", cursive;
-            overflow: hidden;
-            color: #fff;
-        }
-        .heart {
-    position: absolute;
-    color: red;
-    animation: heartFall linear forwards;
-    pointer-events: none;
-    z-index: 99;
-}
-
-@keyframes heartFall {
-    0% {
-        transform: translateY(-50px) scale(0.8);
-        opacity: 1;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love Message</title>
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: url(https://subtlepatterns.com/patterns/noise_lines.png);
+      font-family: "Amatic SC", cursive;
+      overflow: hidden;
+      color: #fff;
     }
-    100% {
-        transform: translateY(100vh) scale(1.5);
-        opacity: 0;
+
+    .bgoverlay {
+      background: #fff;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
     }
-}
 
+    .container {
+      position: relative;
+      margin: 100px auto 0 auto;
+      width: 90%;
+      max-width: 320px;
+    }
 
-        .bgoverlay {
-            background: #fff;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-        .container {
-            position: relative;
-            margin: 120px auto 0 auto;
-            width: 320px;
-        }
+    .ico {
+      display: block;
+      width: 100%;
+      height: 320px;
+    }
 
-        .ico {
-            display: block;
-            width: 320px;
-            height: 320px;
-        }
-        .open .ico {
-            animation: open 4s;
-            transform: scale(10);
-        }
-        .ico .title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-left: -95px;
-            margin-top: -73px;
-            z-index: 4;
-            font-size: 70px;
-            font-family: "Amatic SC", cursive;
-            color: #fff;
-            cursor: pointer;
-            text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-        }
-        .open .ico .title {
-            opacity: 0;
-            transition: all 0.3s ease;
-            top: -100px;
-        }
-        .ico:before,
-        .ico:after,
-        .ico2:before,
-        .ico2:after {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .ico:before,
-        .ico:after,
-        .ico2:before,
-        .ico2:after {
-            display: block;
-            font-size: 20em;
-            color: #000;
-            content: "\f004";
-            font-family: FontAwesome;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .ico2:before,
-        .ico2:after {
-            color: #000;
-        }
-        .ico:before {
-            z-index: 3;
-        }
-        .ico:after {
-            animation: explode 4s infinite;
-        }
+    .ico .title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      font-size: 10vw;
+      color: #fff;
+      cursor: pointer;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    }
 
-        .ico2:before {
-            animation: explodeSmall 3s infinite;
-        }
-        .ico2:after {
-            animation: explodeSmall 2s infinite;
-        }
+    .open .ico {
+      animation: open 4s;
+      transform: scale(10);
+    }
 
-        .endtext {
-            opacity: 0;
-            position: absolute;
-            top: -100px;
-            width: 100%;
-        }
-        .open .endtext {
-            top: 0;
-            opacity: 1;
-            animation: show 5s;
-        }
-        .endtext .close {
-            position: absolute;
-            top: 0;
-            right: 0;
-            cursor: pointer;
-            text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-        }
-        .endtext h1,
-        .endtext h2,
-        .endtext h3 {
-            text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            font-weight: normal;
-        }
-        .endtext h1 {
-            font-size: 50px;
-        }
-        .endtext h2 {
-            font-size: 30px;
-        }
-        .endtext h3 {
-            font-size: 20px;
-        }
+    .open .ico .title {
+      opacity: 0;
+      transition: all 0.3s ease;
+      top: -100px;
+    }
 
-        /* Flower animation styles */
-        .flower-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-            display: none;
-        }
-        
-        .flower {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            animation: flowerFall linear forwards;
-        }
-        
-        @keyframes flowerFall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(calc(100vh + 100px)) rotate(360deg);
-                opacity: 0;
-            }
-        }
+    .ico:before,
+    .ico:after,
+    .ico2:before,
+    .ico2:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      font-size: 15vw;
+      color: #000;
+      content: "\f004";
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-        @keyframes explode {
-            from {
-                transform: scale(1);
-                opacity: 1;
-            }
-            to {
-                transform: scale(1.6);
-                opacity: 0;
-            }
-        }
-        @keyframes explodeSmall {
-            from {
-                transform: scale(1);
-                opacity: 1;
-            }
-            to {
-                transform: scale(1.2);
-                opacity: 0;
-            }
-        }
+    .ico2:before,
+    .ico2:after {
+      color: #000;
+    }
 
-        @keyframes open {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(10);
-            }
-        }
+    .ico:before { z-index: 3; }
+    .ico:after { animation: explode 4s infinite; }
+    .ico2:before { animation: explodeSmall 3s infinite; }
+    .ico2:after { animation: explodeSmall 2s infinite; }
 
-        @keyframes show {
-            from {
-                opacity: 0;
-                top: -100px;
-            }
-            to {
-                opacity: 1;
-                top: 0;
-            }
-        }
-    </style>
+    .endtext {
+      opacity: 0;
+      position: absolute;
+      top: -100px;
+      width: 100%;
+    }
+
+    .open .endtext {
+      top: 0;
+      opacity: 1;
+      animation: show 5s;
+    }
+
+    .endtext .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .endtext h1,
+    .endtext h2,
+    .endtext h3 {
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      font-weight: normal;
+    }
+
+    .endtext h1 { font-size: 8vw; }
+    .endtext h2 { font-size: 5vw; }
+    .endtext h3 { font-size: 4vw; }
+
+    .flower-container,
+    #heartContainer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+      display: none;
+    }
+
+    .flower,
+    .heart {
+      position: absolute;
+      top: 0;
+      animation: flowerFall linear forwards;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    .flower {
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .heart {
+      color: red;
+      animation: heartFall linear forwards;
+    }
+
+    @keyframes flowerFall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(calc(100vh + 100px)) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes heartFall {
+      0% { transform: translateY(-50px) scale(0.8); opacity: 1; }
+      100% { transform: translateY(100vh) scale(1.5); opacity: 0; }
+    }
+
+    @keyframes explode {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(1.6); opacity: 0; }
+    }
+
+    @keyframes explodeSmall {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(1.2); opacity: 0; }
+    }
+
+    @keyframes open {
+      from { transform: scale(1); }
+      to { transform: scale(10); }
+    }
+
+    @keyframes show {
+      from { opacity: 0; top: -100px; }
+      to { opacity: 1; top: 0; }
+    }
+  </style>
 </head>
 <body>
-    <div class="bgoverlay">
-        <div class="container">
-            <span class="ico">
-                <span class="ico2"></span>
-                <span class="title">Click Me</span>
-            </span>
-            <div class="endtext">
-                <span class="close" title="Close"><i class="fa fa-times"></i></span>
-                <h1>I Love You</h1>
-                <h2>Cindy</h2>
-                <h3>by Ikhsan</h3>
-            </div>
-        </div>
-        <div id="heartContainer"></div>
-
+  <div class="bgoverlay">
+    <div class="container">
+      <span class="ico">
+        <span class="ico2"></span>
+        <span class="title">Click Me</span>
+      </span>
+      <div class="endtext">
+        <span class="close" title="Close"><i class="fa fa-times"></i></span>
+        <h1>I Love You</h1>
+        <h2>Cindy</h2>
+        <h3>by Ikhsan</h3>
+      </div>
     </div>
+    <div id="heartContainer"></div>
+  </div>
 
-    <!-- Flower animation container -->
-    <div class="flower-container" id="flowerContainer"></div>
+  <div class="flower-container" id="flowerContainer"></div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            // Flower images (using emoji for simplicity, can be replaced with actual images)
-            const flowers = ['🌸', '🌺', '🌻', '🌼', '🌷', '🏵️', '💐', '🥀', '🌹'];
-            
-            $('.title').click(function(){
-                $('.container').addClass('open');
-                startFlowerAnimation();
-            });
-            
-            $('.close').click(function(){
-                $('.container').removeClass('open');
-                stopFlowerAnimation();
-            });
-            
-            function startFlowerAnimation() {
-    const flowerContainer = $('#flowerContainer');
-    const heartContainer = $('#heartContainer');
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      const flowers = ['🌸', '🌺', '🌻', '🌼', '🌷', '🏵️', '💐', '🥀', '🌹'];
+      const hearts = ['❤️', '💕', '💖', '💘', '💗', '💓', '💞'];
 
-    flowerContainer.show();
-    heartContainer.show();
+      $('.title').click(function(){
+        $('.container').addClass('open');
+        startAnimation();
+      });
 
-    const flowerInterval = setInterval(createFlower, 200); // makin cepat
-    const heartInterval = setInterval(createHeart, 80); // makin cepat dan banyak
+      $('.close').click(function(){
+        $('.container').removeClass('open');
+        stopAnimation();
+      });
 
-    flowerContainer.data('interval', flowerInterval);
-    heartContainer.data('interval', heartInterval);
+      function startAnimation() {
+        $('#flowerContainer, #heartContainer').show();
+        const flowerInterval = setInterval(createFlower, 200);
+        const heartInterval = setInterval(createHeart, 80);
+        $('#flowerContainer').data('interval', flowerInterval);
+        $('#heartContainer').data('interval', heartInterval);
+      }
 
-    
-}
+      function stopAnimation() {
+        clearInterval($('#flowerContainer').data('interval'));
+        clearInterval($('#heartContainer').data('interval'));
+        $('#flowerContainer, #heartContainer').hide().empty();
+      }
 
-
-            
-            function stopFlowerAnimation() {
-    const flowerContainer = $('#flowerContainer');
-    const heartContainer = $('#heartContainer');
-
-    clearInterval(flowerContainer.data('interval'));
-    clearInterval(heartContainer.data('interval'));
-
-    flowerContainer.hide().empty();
-    heartContainer.hide().empty();
-}
-
-
-            
-            function createFlower() {
-    const container = $('#flowerContainer');
-    const flowers = ['🌸', '🌺', '🌻', '🌼', '🌷', '🏵️', '💐', '🥀', '🌹'];
-
-    const flower = $('<div class="flower">').html(
-        flowers[Math.floor(Math.random() * flowers.length)]
-    );
-
-    const size = 20 + Math.random() * 30;
-    const duration = 4 + Math.random() * 4;
-    const startPos = Math.random() * window.innerWidth;
-
-    flower.css({
-        top: '0px', // dari atas
-        left: startPos + 'px',
-        fontSize: size + 'px',
-        animationDuration: duration + 's',
-    });
-
-    container.append(flower);
-
-    setTimeout(() => flower.remove(), duration * 1000);
-}
-
-           function createHeart() {
-    const container = $('#heartContainer');
-    const hearts = ['❤️', '💕', '💖', '💘', '💗', '💓', '💞'];
-
-    const heart = $('<div class="heart">').html(
-        hearts[Math.floor(Math.random() * hearts.length)]
-    );
-
-    const size = 10 + Math.random() * 20;
-    const duration = 3 + Math.random() * 3;
-    const startPos = Math.random() * window.innerWidth;
-
-    heart.css({
-        top: '0px', // dari atas
-        left: startPos + 'px',
-        fontSize: size + 'px',
-        animationDuration: duration + 's',
-    });
-
-    container.append(heart);
-
-    setTimeout(() => heart.remove(), duration * 1000);
-}
-
-
-
-
+      function createFlower() {
+        const flower = $('<div class="flower">').html(
+          flowers[Math.floor(Math.random() * flowers.length)]
+        );
+        flower.css({
+          left: Math.random() * window.innerWidth + 'px',
+          fontSize: 20 + Math.random() * 30 + 'px',
+          animationDuration: 4 + Math.random() * 4 + 's'
         });
-    </script>
+        $('#flowerContainer').append(flower);
+        setTimeout(() => flower.remove(), 8000);
+      }
+
+      function createHeart() {
+        const heart = $('<div class="heart">').html(
+          hearts[Math.floor(Math.random() * hearts.length)]
+        );
+        heart.css({
+          left: Math.random() * window.innerWidth + 'px',
+          fontSize: 10 + Math.random() * 20 + 'px',
+          animationDuration: 3 + Math.random() * 3 + 's'
+        });
+        $('#heartContainer').append(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+    });
+  </script>
 </body>
 </html>
