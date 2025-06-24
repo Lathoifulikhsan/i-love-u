@@ -272,7 +272,7 @@
     flowerContainer.data('interval', flowerInterval);
     heartContainer.data('interval', heartInterval);
 
-    setTimeout(stopFlowerAnimation, 12000); // 12 detik total animasi
+    
 }
 
 
@@ -291,32 +291,30 @@
 
             
             function createFlower() {
-                const container = $('#flowerContainer');
-                const flower = $('<div class="flower">').html(
-                    flowers[Math.floor(Math.random() * flowers.length)]
-                );
-                
-                // Random position at the top
-                const startPos = Math.random() * window.innerWidth;
-                const duration = 5 + Math.random() * 5; // 5-10 seconds
-                const size = 20 + Math.random() * 30; // 20-50px
-                const delay = Math.random() * 5;
-                
-                flower.css({
-                    left: startPos + 'px',
-                    fontSize: size + 'px',
-                    animationDuration: duration + 's',
-                    animationDelay: delay + 's'
-                });
-                
-                container.append(flower);
-                
-                // Remove flower after animation completes
-                setTimeout(() => {
-                    flower.remove();
-                }, duration * 1000);
-            }
-            function createHeart() {
+    const container = $('#flowerContainer');
+    const flowers = ['🌸', '🌺', '🌻', '🌼', '🌷', '🏵️', '💐', '🥀', '🌹'];
+
+    const flower = $('<div class="flower">').html(
+        flowers[Math.floor(Math.random() * flowers.length)]
+    );
+
+    const size = 20 + Math.random() * 30;
+    const duration = 4 + Math.random() * 4;
+    const startPos = Math.random() * window.innerWidth;
+
+    flower.css({
+        top: '0px', // dari atas
+        left: startPos + 'px',
+        fontSize: size + 'px',
+        animationDuration: duration + 's',
+    });
+
+    container.append(flower);
+
+    setTimeout(() => flower.remove(), duration * 1000);
+}
+
+           function createHeart() {
     const container = $('#heartContainer');
     const hearts = ['❤️', '💕', '💖', '💘', '💗', '💓', '💞'];
 
@@ -324,22 +322,22 @@
         hearts[Math.floor(Math.random() * hearts.length)]
     );
 
-    const size = 10 + Math.random() * 15;
-    const duration = 2 + Math.random() * 2;
+    const size = 10 + Math.random() * 20;
+    const duration = 3 + Math.random() * 3;
     const startPos = Math.random() * window.innerWidth;
-    const delay = Math.random() * 1;
 
     heart.css({
+        top: '0px', // dari atas
         left: startPos + 'px',
         fontSize: size + 'px',
         animationDuration: duration + 's',
-        animationDelay: delay + 's',
     });
 
     container.append(heart);
 
-    setTimeout(() => heart.remove(), (duration + delay) * 1000);
+    setTimeout(() => heart.remove(), duration * 1000);
 }
+
 
 
 
